@@ -1,0 +1,117 @@
+/* Universal */
+.createItemHeader {
+	background: rgba(26,24,38,.6);
+	color: white;
+	padding: 20px 10px;
+	height: 60px;
+}
+
+.content {
+	padding: 10px;
+	height: 60px;
+	background: rgba(26,24,38,.6);
+	span {
+	    color: #FFF;
+	    position: relative;
+	    top: 10px;
+	    left: 5px;
+	}
+}
+
+/* Individual design */
+.itemName {
+	margin-bottom: 20px;
+}
+
+.caseImageHeader {
+	margin-bottom: 20px;
+}
+
+.caseImages {
+	margin-bottom: 20px;
+
+	.container {
+		padding-top: 10px;
+		background-color: #ddd;
+	}
+
+	.caseCaption{
+		background-color: #eee;
+		margin-bottom: 20px;
+		padding: 5px 5px;
+		text-align: center;
+		border: 2px solid #aaa;
+
+		img {
+			max-height: 150px;
+			width: auto;
+		}
+	}
+
+	.caseCaption:hover {
+		border: 2px solid #000000;
+		transition: border 0.2s ease-in-out;
+		cursor: pointer;
+	}
+
+	.active {
+		border: 2px solid #000000;
+	}
+}
+
+.itemSearch {
+	margin-bottom: 20px;
+	.search {
+
+	}
+}
+
+.item {
+	margin-bottom: 40px;
+	height: 400px; 
+	overflow: scroll;
+	overflow-x: hidden;
+	
+	.container {
+		padding-top: 10px;
+		background-color: #ddd;
+		text-align: left;
+		.thumbnail {
+			height:200px;
+			.caption-img {
+				text-align: center;
+				width: auto;
+				img {
+					max-height: 75px; 
+					width: auto;
+				}
+			}
+		}
+
+		.thumbnail:hover {
+			cursor: pointer;
+			border: 1px solid #000;
+		}
+	}
+}
+
+.itemHeader {
+}
+
+.items {
+	margin-bottom: 20px;
+	padding-top: 10px;
+	table {
+		tr {
+			background-color: #ddd;
+			border-bottom: 1px solid #eee;
+			td {
+				padding: 10px 10px;
+			}
+		}
+	}
+}
+
+.errors {
+
+}
