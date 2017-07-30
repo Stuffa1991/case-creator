@@ -33,14 +33,29 @@ class CaseController extends Controller
       //Check incoming message is ok
       if(strtolower($request->order) !== 'desc' && strtolower($request->order) !== 'asc' || strtolower($request->orderBy) !== 'price' && strtolower($request->orderBy) !=='name') return $this->apiReturnMessage('error','You cant do that');
 
-      $query = Price::normal();
+      //Order by
       $orderBy = strtolower($request->orderBy) == 'price' ? 'price' : 'market_name';
 
-      if($request->has('name')){
-        $query->searchName($request->name);
-      }
+      //Are the person searching for name?
+      $requestHasName = $request->has('name');
 
-      return $query->orderBy($orderBy, $request->order)->paginate('15');
+      //Initial cache name
+      $itemcache = 'order_' . $request->order . '_orderBy_' . $orderBy;
+
+      //Cachename if request has a name
+      $itemsearch = $requestHasName ? $itemcache . '_' . $request->name : $itemcache;
+
+      //Check if search is cached
+      if(Cache::has($itemsearch)) return Cache::get($itemsearch);
+
+      //Find items eligible
+      $query = $requestHasName ? Price::normal()->searchName($request->name) : Price::normal();
+      $query = $query->orderBy($orderBy, $request->order)->paginate('15');
+
+      //Cache result for 10 minutes
+      Cache::put($itemsearch, $query, 10);
+
+      return $query;
     }
 
     /**
@@ -49,13 +64,25 @@ class CaseController extends Controller
      * @return     <type>  ( Returns all available image )
      */
     public function images() {
+      //TODO MOVE TO SEEDING LAYER
       // for($i = 1; $i < 7; $i++) {
       //   Caseimages::create([
       //     'imageurl' => '/images/cases/' . $i . '.png'
       //   ]);
       // }
 
-      return Caseimages::get();
+      //Cache name
+      $caseimages = 'caseimages';
+
+      //Do cache already have it, return cached result
+      if(Cache::has($caseimages)) return Cache::get($caseimages);
+
+      $images = Caseimages::get();
+
+      //Cache images for 10 minutes
+      Cache::put($caseimages, $images, 10);
+
+      return $images;
     }
 
    	/**
@@ -64,11 +91,22 @@ class CaseController extends Controller
    	 * @return     <json>  ( All cases created )
    	 */
     public function cases() {
+      //TODO POPULAR/FEATURED Cases instead
+
+      //Cache name
+      $caseall = 'caseall';
+
+      //Do cache already have it, return cached result
+      if(Cache::has($caseall)) return Cache::get($caseall);
+
       $cases = Cases::with('items.iteminfo', 'image')->get();
 
       foreach ($cases as $case) {
         $case->totalPrice = $this->calculateTotalPrice($case->items,$case->id);
       }
+
+      //Cache cases for 10 minutes
+      Cache::put($caseall, $cases, 10);
 
       return $cases;
     }
@@ -79,11 +117,20 @@ class CaseController extends Controller
      * @return <json> ( Returns specific case )
      */
     public function case($id) {
+      //TODO Caching layer
+
+      $casefind = 'casefind_' . $id;
+
+      if(Cache::has($casefind)) return Cache::get($casefind);
+
       //Find the case
       $case = Cases::with('items.iteminfo')->findOrFail($id);
 
       //Return specific case
       $case->totalPrice = $this->calculateTotalPrice($case->items,$case->id);
+
+      //Cache case for 10 minutes
+      Cache::put($casefind, $case, 10);
 
       return $case;
     }
@@ -220,7 +267,7 @@ class CaseController extends Controller
     /**
      * [openCase description]
      * @param  [type] $id [Id of case opened]
-     * @return [json]     [Error  || Succes - Item opened + balance]
+     * @return [json]     [Error  || Success - Item opened + balance]
      */
     public function openCase($id) {
 		//Find the user
