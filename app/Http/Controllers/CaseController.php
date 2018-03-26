@@ -38,7 +38,7 @@ class CaseController extends Controller
       $requestHasName = $request->has('name');
 
       //Initial cache name
-      $itemcache = 'order_' . $request->order . '_orderBy_' . $orderBy;
+        $itemcache = 'order_' . $request->order . '_orderBy_' . $orderBy . '_page_' . $request->page;
 
       //Cachename if request has a name
       $itemsearch = $requestHasName ? $itemcache . '_' . $request->name : $itemcache;
