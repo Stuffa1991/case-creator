@@ -5,11 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Price;
 use App\Cases;
-use App\Item;
 use App\Caseimages;
-use DB;
-use Auth;
-use Cache;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 
 class CaseController extends Controller
 {
@@ -64,13 +62,6 @@ class CaseController extends Controller
      * @return     <type>  ( Returns all available image )
      */
     public function images() {
-      //TODO MOVE TO SEEDING LAYER
-      // for($i = 1; $i < 7; $i++) {
-      //   Caseimages::create([
-      //     'imageurl' => '/images/cases/' . $i . '.png'
-      //   ]);
-      // }
-
       //Cache name
       $caseimages = 'caseimages';
 
@@ -100,6 +91,7 @@ class CaseController extends Controller
       if(Cache::has($caseall)) return Cache::get($caseall);
 
       $cases = Cases::with('items.iteminfo', 'image')->get();
+      $cases = $cases ?: [];
 
       foreach ($cases as $case) {
         $case->totalPrice = $this->calculateTotalPrice($case->items,$case->id);
@@ -113,7 +105,7 @@ class CaseController extends Controller
 
     /**
      * Returns a specific case
-     * 
+     *
      * @return <json> ( Returns specific case )
      */
     public function case($id) {

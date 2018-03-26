@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Client;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use App\Price;
-use Carbon\Carbon;
-
-use Illuminate\Http\Request;
 
 class SteamLyticsController extends Controller
 {
@@ -39,7 +35,7 @@ class SteamLyticsController extends Controller
      * @return     <json>  ( All current popular items from steamlytics )
      */
     public function itemsPopular()
-    {   
+    {
         return $this->apiClient('/v1/items/popular','itemsPopular', 1);
     }
 
@@ -87,9 +83,8 @@ class SteamLyticsController extends Controller
     private function apiClient($url,$name,$time)
     {
         if(Cache::has($name)) return $this->apiReturnMessage('success', Cache::get($name));
-
         //Make new instance of guzzle
-        $res = $this->client->GET($url . '?key=' . $this->steamLyticApiKey);
+        $res = $this->client->get($url . '?key=' . $this->steamLyticApiKey);
 
         //Get status code
         if($res->getStatusCode() != '200') return $this->apiReturnMessage('error', 'Wrong status code ' . $res->getStatusCode());
@@ -115,7 +110,7 @@ class SteamLyticsController extends Controller
      *
      * @return     <json>  ( Returns a json with a message )
      */
-    private function apiReturnMessage($code,$message) 
+    private function apiReturnMessage($code,$message)
     {
         return response()->json(['status' => $code, 'message' => $message]);
     }
@@ -148,7 +143,7 @@ class SteamLyticsController extends Controller
             //If not we make sure the thing we are trying to make also exists in the pricing array
             if(array_key_exists($item->market_hash_name, $prices) && $item->type && $doWeWantThis) {
                 //Update or create an item
-                $makeNew = Price::updateOrCreate(['market_hash_name' => $item->market_hash_name], [
+                Price::updateOrCreate(['market_hash_name' => $item->market_hash_name], [
                     'market_name' => $item->market_name,
                     'market_hash_name' => $item->market_hash_name,
                     'type' => $item->type,
@@ -158,12 +153,12 @@ class SteamLyticsController extends Controller
                     'price' => $prices[$item->market_hash_name]->safe_price
                 ]);
             }
-            
+
             //If this was the last instance of the object, this means the loop has run succesfully
             if($i == $itemsCount) return $this->apiReturnMessage('success', 'Everything went as planned');
         }
-        
-        return $this->apiReturnMessage('error', 'Something went wrong not every item was added');  
+
+        return $this->apiReturnMessage('error', 'Something went wrong not every item was added');
     }
 
     /**
@@ -192,7 +187,7 @@ class SteamLyticsController extends Controller
             if($i == $itemsCount) return $this->apiReturnMessage('success', 'Everything went as planned ' . $itemsCount . ' had their pricing updated');
         }
 
-        return $this->apiReturnMessage('error', 'Something went wrong not every item was not updated');  
+        return $this->apiReturnMessage('error', 'Something went wrong not every item was not updated');
     }
 
     /**

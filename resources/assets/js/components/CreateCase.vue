@@ -211,6 +211,7 @@
       },
       mounted() {
         this.loadImages();
+        this.onInfinite();
       },
       methods: {
         onCaseName() {
@@ -381,10 +382,10 @@
             this.$router.push(`/case/${res.data.message}`);
           })
           .catch((err) => {
-            
+
           });
         }
       }
     };
-    
+
 </script>
