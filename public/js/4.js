@@ -129,7 +129,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             axios.get(this.api + 'get/' + this.caseId).then(function (res) {
                 //Case Price
-                _this.casePrice = res.data.totalPrice.toFixed(3);
+                _this.casePrice = parseFloat(res.data.totalPrice).toFixed(3);
                 //Case Name
                 _this.caseName = res.data.name;
                 //Case items information
@@ -138,7 +138,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 //We do this to make sure the item its defaulted on is pushed a little so they dont see the edge on the right
                 _this.wonItem = _this.absoluteZero - _this.widthImg * _this.items.length * 2 - _this.widthImg / 2;
 
-                //We need to make a new array for 
+                //We need to make a new array for
                 _this.makeArray(function (newArray) {
                     //Populate case items
                     _this.caseItems = newArray;

@@ -85,7 +85,7 @@
                 axios.get(this.api + 'get/' + this.caseId)
                 .then((res) => {
                     //Case Price
-                    this.casePrice = (res.data.totalPrice).toFixed(3);
+                    this.casePrice = parseFloat(res.data.totalPrice).toFixed(3);
                     //Case Name
                     this.caseName = res.data.name;
                     //Case items information
@@ -94,7 +94,7 @@
                     //We do this to make sure the item its defaulted on is pushed a little so they dont see the edge on the right
                     this.wonItem = this.absoluteZero - (this.widthImg * (this.items.length)) * 2 - (this.widthImg/2);
 
-                    //We need to make a new array for 
+                    //We need to make a new array for
                     this.makeArray((newArray) => {
                     	//Populate case items
                     	this.caseItems = newArray;
@@ -129,7 +129,7 @@
             setRollStyle() {
 				//We style the object to make it spin
             	this.spinStyle = {
-            		width: `${this.lengthInPx}px`, 
+            		width: `${this.lengthInPx}px`,
             		transform: `translateX(${this.wonItem}px)`,
             		transition: `all cubic-bezier(0.075, 0.800, 0.17, 1.000) ${this.animDuration}s`
             	};
@@ -137,7 +137,7 @@
             setWinnerStyle(fixedRoll) {
             	//We style the object to make it spin
             	this.spinStyle = {
-            		width: `${this.lengthInPx} px`, 
+            		width: `${this.lengthInPx} px`,
             		transform: `translateX(${fixedRoll}px)`,
             		transition: `all ease ${this.winnerDuration}s`
             	};
