@@ -8,12 +8,17 @@ class Item extends Model
 {
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = false;
+    /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'items';
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -22,7 +27,6 @@ class Item extends Model
     protected $fillable = [
         'percentage', 'priceid'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -31,13 +35,6 @@ class Item extends Model
     protected $hidden = [
         'pivot'
     ];
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = false;
 
     public function iteminfo()
     {

@@ -19,7 +19,7 @@ class Cases extends Migration
             $table->nullableTimestamps();
             $table->softDeletes();
         });
-        
+
         Schema::create('cases', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name')->nullable();
@@ -50,8 +50,8 @@ class Cases extends Migration
      */
     public function down()
     {
+        Schema::drop('caseimages');
         Schema::drop('cases');
         Schema::drop('case_has_items');
-        Schema::drop('caseimages');
     }
 }

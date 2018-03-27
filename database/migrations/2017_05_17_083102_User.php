@@ -22,7 +22,7 @@ class User extends Migration
             $table->string('email')->nullable();
             $table->string('remember_token')->nullable();
             $table->decimal('balance')->default(0);
-            $table->enum('role', ['user', 'support' , 'admin']);
+            $table->enum('role', ['user', 'support', 'admin']);
             $table->nullableTimestamps();
             $table->softDeletes();
         });
@@ -30,7 +30,7 @@ class User extends Migration
         Schema::create('transactions', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->enum('action', ['buy', 'sell' , 'deposit']);
+            $table->enum('action', ['buy', 'sell', 'deposit']);
             $table->decimal('amount')->default('0');
 
             $table->integer('userid')->unsigned();

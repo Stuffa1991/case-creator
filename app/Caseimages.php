@@ -2,9 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class Caseimages extends Model
 {
@@ -12,12 +12,17 @@ class Caseimages extends Model
     use SoftDeletes;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+    /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'caseimages';
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -26,7 +31,6 @@ class Caseimages extends Model
     protected $fillable = [
         'imageurl', 'id'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -36,14 +40,8 @@ class Caseimages extends Model
         'deleted_at', 'updated_at', 'created_at'
     ];
 
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = true;
-
-    public function case() {
-    	return $this->belongsTo('App\Cases', 'caseimageid');
+    public function case()
+    {
+        return $this->belongsTo('App\Cases', 'caseimageid');
     }
 }

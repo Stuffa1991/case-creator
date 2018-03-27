@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 class Transaction extends Model
 {
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+    /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'transactions';
-    
     /**
      * The attributes that are mass assignable.
      *
@@ -21,7 +26,6 @@ class Transaction extends Model
     protected $fillable = [
         'action', 'amount', 'userid'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -31,18 +35,13 @@ class Transaction extends Model
         'created_at', 'updated_at', 'userid'
     ];
 
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = true;
-
-    public function scopeUserBalance($query, $type) {
+    public function scopeUserBalance($query, $type)
+    {
         $query->where('action', $type);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo('App\User', 'userid', 'id');
     }
 }

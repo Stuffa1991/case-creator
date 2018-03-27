@@ -2,10 +2,9 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
@@ -13,36 +12,33 @@ class User extends Authenticatable
     use SoftDeletes;
 
     /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
+    public $timestamps = true;
+    /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'users';
-    
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'username', 'email','steamid64','avatar'
+        'username', 'email', 'steamid64', 'avatar'
     ];
-
     /**
      * The attributes that should be hidden for arrays.
      *
      * @var array
      */
     protected $hidden = [
-        'remember_token','id','role','trade_link', 'email'
+        'remember_token', 'id', 'role', 'trade_link', 'email'
     ];
-
-    /**
-     * Indicates if the model should be timestamped.
-     *
-     * @var bool
-     */
-    public $timestamps = true;
 
     public function cases()
     {
@@ -54,7 +50,8 @@ class User extends Authenticatable
         return $this->hasMany('App\Transaction', 'userid');
     }
 
-    public function hasItems() {
+    public function hasItems()
+    {
         return $this->belongsToMany('App\Item', 'user_has_items', 'UserID', 'ItemID');
     }
 }

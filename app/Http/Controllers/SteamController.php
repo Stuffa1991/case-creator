@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Invisnik\LaravelSteamAuth\SteamAuth;
-use App\Http\Controllers\Controller;
 use App\User;
-use Auth;
-use App\Http\Requests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Invisnik\LaravelSteamAuth\SteamAuth;
 
+/**
+ * @property Controller controller
+ */
 class SteamController extends Controller
 {
     /**
@@ -22,25 +23,23 @@ class SteamController extends Controller
         $this->controller = new Controller;
     }
 
-    public function login(Request $request)
+    public function login()
     {
         if ($this->steam->validate()) {
             $info = $this->steam->getUserInfo();
 
             if (!is_null($info)) {
-                $user = User::where('steamid64', $info->get('steamID64'))->first();
+                $user = (new User)->where('steamid64', $info->get('steamID64'))->first();
 
                 if (is_null($user)) {
                     $username = $info->get('personaname');
 
-                    $user = User::create([
+                    $user = (new User)->create([
                         'username' => $username,
-                        'avatar'   => $info->get('avatarfull'),
-                        'steamid64'  => $info->get('steamID64')
+                        'avatar' => $info->get('avatarfull'),
+                        'steamid64' => $info->get('steamID64')
                     ]);
-                }
-                else
-                {
+                } else {
                     $username = $info->get('personaname');
                     $user->update(['username' => $username, 'avatar' => $info->get('avatarfull')]);
                 }
@@ -53,7 +52,7 @@ class SteamController extends Controller
         }
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         //Make their session invalid
         Auth::logout();
@@ -63,16 +62,16 @@ class SteamController extends Controller
     public function updateSettings(Request $request)
     {
         $user = $this->controller->getUserInfo();
-        if($token = $this->_parseTradeLink($link = $request->get('trade_link'))){
+        if ($token = $this->_parseTradeLink($link = $request->get('trade_link'))) {
             $user->trade_link = $link;
             $user->accessToken = $token;
             $user->save();
-                return response()->json(['msg' => 'Settings have been saved!', 'status' => 'success', 'trade_link' => $link]);
-        }else{
-                return response()->json(['msg' => 'Invalid URL!', 'status' => 'error']);
+            return response()->json(['msg' => 'Settings have been saved!', 'status' => 'success', 'trade_link' => $link]);
+        } else {
+            return response()->json(['msg' => 'Invalid URL!', 'status' => 'error']);
         }
     }
-    
+
     private function _parseTradeLink($tradeLink)
     {
         $query_str = parse_url($tradeLink, PHP_URL_QUERY);

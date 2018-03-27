@@ -11,186 +11,186 @@ $bottomWin: $borderWin+$topWin;
 $prewin: ($openingSpinnerWidth - $case-width) / 2;
 
 .openingSpinner {
-    margin: 0 auto;
-    height: $case-height;
-    width: $openingSpinnerWidth;
-    padding: 10px $paddingOpening;
-    margin-bottom: 40px;
-    position: relative;
-    overflow: hidden;
-    background-color: #ddd;
-    
-    .pre-win,.after-win,.top-win,.bottom-win {
-        position: absolute;
-        background-color: #000000;
-        top: 0;
-        bottom: 0;
-        z-index: 100;
-        /* Theoretically for IE 8 & 9 (more valid) */   
-        /* ...but not required as filter works too */
-        /* should come BEFORE filter */
-        -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
-        
-        /* This works in IE 8 & 9 too */
-        /* ... but also 5, 6, 7 */
-        filter: alpha(opacity=50);
-        
-        /* Older than Firefox 0.9 */
-        -moz-opacity:0.5;
-        
-        /* Safari 1.x (pre WebKit!) */
-        -khtml-opacity: 0.5;
-        
-        /* Modern!
-        /* Firefox 0.9+, Safari 2?, Chrome any?
-        /* Opera 9+, IE 9+ */
-        opacity: 0.5;
-    }
-    
-    .pre-win,.after-win {
-        width: $prewin;
-    }
+  margin: 0 auto;
+  height: $case-height;
+  width: $openingSpinnerWidth;
+  padding: 10px $paddingOpening;
+  margin-bottom: 40px;
+  position: relative;
+  overflow: hidden;
+  background-color: #ddd;
 
-    .pre-win{
-        left: 0;
-    }
+  .pre-win, .after-win, .top-win, .bottom-win {
+    position: absolute;
+    background-color: #000000;
+    top: 0;
+    bottom: 0;
+    z-index: 100;
+    /* Theoretically for IE 8 & 9 (more valid) */
+    /* ...but not required as filter works too */
+    /* should come BEFORE filter */
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
 
-    .after-win {
-        right: 0;
-    }
+    /* This works in IE 8 & 9 too */
+    /* ... but also 5, 6, 7 */
+    filter: alpha(opacity=50);
 
-    .top-win,.bottom-win {
-        left: $prewin;
-        right: $prewin;
-        width: $case-width;
-    }
+    /* Older than Firefox 0.9 */
+    -moz-opacity: 0.5;
 
-    .top-win {
-        top: 0px;
-        height: $topWin; //Top of win div
-    }
+    /* Safari 1.x (pre WebKit!) */
+    -khtml-opacity: 0.5;
 
-    .bottom-win {
-        top: $case-height - $bottomWin; //Height of win div
-    }
-    
-    .win {
-        position: absolute;
-        z-index: 100;
-        width: $case-width;
-        left: $prewin;
-        right: $prewin;
-        bottom: $bottomWin;
-        top: $topWin;
-        border: $borderWin solid #FFE300;
-    }
+    /* Modern!
+    /* Firefox 0.9+, Safari 2?, Chrome any?
+    /* Opera 9+, IE 9+ */
+    opacity: 0.5;
+  }
 
-    .selected {
-        position: absolute;
-        z-index: 100;
-        background-color: yellow;
-        height: 100%;
-        width: 1px;
-        top: 0;
-        left: $openingSpinnerWidth / 2;
-    }
+  .pre-win, .after-win {
+    width: $prewin;
+  }
 
-    .potentialWinning {
-        border: 5px solid #aaa;
-        height: $case-height - 24;
-        z-index: 10;
-    }
+  .pre-win {
+    left: 0;
+  }
+
+  .after-win {
+    right: 0;
+  }
+
+  .top-win, .bottom-win {
+    left: $prewin;
+    right: $prewin;
+    width: $case-width;
+  }
+
+  .top-win {
+    top: 0px;
+    height: $topWin; //Top of win div
+  }
+
+  .bottom-win {
+    top: $case-height - $bottomWin; //Height of win div
+  }
+
+  .win {
+    position: absolute;
+    z-index: 100;
+    width: $case-width;
+    left: $prewin;
+    right: $prewin;
+    bottom: $bottomWin;
+    top: $topWin;
+    border: $borderWin solid #FFE300;
+  }
+
+  .selected {
+    position: absolute;
+    z-index: 100;
+    background-color: yellow;
+    height: 100%;
+    width: 1px;
+    top: 0;
+    left: $openingSpinnerWidth / 2;
+  }
+
+  .potentialWinning {
+    border: 5px solid #aaa;
+    height: $case-height - 24;
+    z-index: 10;
+  }
 }
 
 .potentialWinnings {
-    padding: 5px;
-    background-color: #ddd;
-    color: #fff;
+  padding: 5px;
+  background-color: #ddd;
+  color: #fff;
 
-    .itemsInCase {
-        font-size: 14px;
-        text-transform: uppercase;
-        font-weight: 800;
-        padding: 10px;
-    }
+  .itemsInCase {
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 800;
+    padding: 10px;
+  }
 
-    .potentialItems {
-        text-align: center;
-    }
+  .potentialItems {
+    text-align: center;
+  }
 }
 
 .openSection {
-    margin-bottom: 40px;
-    text-align: center;
+  margin-bottom: 40px;
+  text-align: center;
 }
 
 .potentialWinning {
-    width: $case-width;
-    height: $case-height;
-    display: inline-block;
-    border: 1px solid #aaa;
-    overflow: hidden;
-    position: relative;
+  width: $case-width;
+  height: $case-height;
+  display: inline-block;
+  border: 1px solid #aaa;
+  overflow: hidden;
+  position: relative;
 
-    .caseContent {
-        text-align: center;
+  .caseContent {
+    text-align: center;
 
-        .name,.percentage {
-            font-weight: 800;
-            font-size: 12px;
-            text-align: center;
-            color: #FFF;
-            -webkit-transition: all .1s linear;
-            -moz-transition: all .1s linear;
-            transition: all .1s linear;
-        }
-    
-        .name {
-            position: absolute;
-            left: 0;
-            right: 0;
-            top: 0px;
-            z-index: 2;
-        }
-        .percentage {
-            position: absolute;
-            left: 25%;
-            right: 25%;
-            bottom: 0px;
-        }
-
-        .image {
-            top: 40%;
-            position: absolute;
-            left: 25%;
-            right: 25%;
-            transition: all .1s linear;
-            width: auto;
-            height: 50px;
-        }
+    .name, .percentage {
+      font-weight: 800;
+      font-size: 12px;
+      text-align: center;
+      color: #FFF;
+      -webkit-transition: all .1s linear;
+      -moz-transition: all .1s linear;
+      transition: all .1s linear;
     }
+
+    .name {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0px;
+      z-index: 2;
+    }
+    .percentage {
+      position: absolute;
+      left: 25%;
+      right: 25%;
+      bottom: 0px;
+    }
+
+    .image {
+      top: 40%;
+      position: absolute;
+      left: 25%;
+      right: 25%;
+      transition: all .1s linear;
+      width: auto;
+      height: 50px;
+    }
+  }
 }
 
 .Classified {
-    background-color: #D32C36;
+  background-color: #D32C36;
 }
 
 .Consumer {
-    background-color: #B0C3D9;
+  background-color: #B0C3D9;
 }
 
 .Contraband {
-    background-color: #E4AE39;
+  background-color: #E4AE39;
 }
 
 .Covert {
-    background-color: #EB4B4B;
+  background-color: #EB4B4B;
 }
 
 .Industrial {
-    background-color: #5E98D9;
+  background-color: #5E98D9;
 }
 
 .Restricted {
-    background-color: #8847FF;
+  background-color: #8847FF;
 }

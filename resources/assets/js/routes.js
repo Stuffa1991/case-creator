@@ -8,13 +8,13 @@ const Case = (resolve) => require(['./components/Case.vue'], resolve)
 
 // 3. Create the router
 export default new VueRouter({
-  mode: 'history',
-  base: __dirname,
-  routes: [
-    { path: '/', component: PopularCases },
-    { path: '/create', component: CreateCase },
-    { path: '/myaccount', component: MyAccount },
-    { path: '/case/:id', component: Case },
-    { path: '*', component: NotFound }
-  ]
+    mode: 'history',
+    base: __dirname,
+    routes: [
+        { path: '/', component: PopularCases },
+        { path: '/create', component: CreateCase },
+        { path: '/myaccount', component: MyAccount },
+        { path: '/case/:id', component: Case },
+        { path: '*', component: NotFound }
+    ]
 });

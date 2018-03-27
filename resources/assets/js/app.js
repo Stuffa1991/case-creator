@@ -12,11 +12,17 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the body of the page. From here, you may begin adding components to
+ * the application, or feel free to tweak this setup for your needs.
+ */
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import InfiniteLoading from 'vue-infinite-loading';
 import 'vue-instant/dist/vue-instant.css';
-import Loader from './components/Loader';
+import Loader from './components/Loader'; // 1. Use plugin.
+import router from './routes'; // 4. Create and mount root instance.
 
 // 1. Use plugin.
 // This installs <router-view> and <router-link>,
@@ -26,16 +32,14 @@ Vue.use(VueRouter);
 Vue.component('infinite-loading', InfiniteLoading);
 Vue.component('loader', Loader);
 
-import router from './routes';
-
 // 4. Create and mount root instance.
 // Make sure to inject the router.
 // Route components will be rendered inside <router-view>.
 new Vue({
-	el: '#app',
-	router,
-	mounted() {
-		//console.log('lol');
-	}
- 
+    el: '#app',
+    router,
+    mounted() {
+        //console.log('lol');
+    }
+
 });

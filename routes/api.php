@@ -19,17 +19,17 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 Route::group(['prefix' => 'steamlytics'], function () {
     Route::get('items', 'SteamLyticsController@items');
-	Route::get('itemsPopular', 'SteamLyticsController@itemsPopular');
-	Route::get('price/{name}', 'SteamLyticsController@price');
-	Route::get('pricelistcompact', 'SteamLyticsController@priceListCompact');
-	Route::get('pricelist', 'SteamLyticsController@priceList');
-	Route::get('populate', 'SteamLyticsController@populate');
-	Route::get('updateprices', 'SteamLyticsController@updatePrices');
+    Route::get('itemsPopular', 'SteamLyticsController@itemsPopular');
+    Route::get('price/{name}', 'SteamLyticsController@price');
+    Route::get('pricelistcompact', 'SteamLyticsController@priceListCompact');
+    Route::get('pricelist', 'SteamLyticsController@priceList');
+    Route::get('populate', 'SteamLyticsController@populate');
+    Route::get('updateprices', 'SteamLyticsController@updatePrices');
 });
 
 Route::group(['prefix' => 'case'], function () {
-	Route::get('items', 'CaseController@items');
-	Route::get('images', 'CaseController@images');
-	Route::get('all', 'CaseController@cases');
-	Route::get('get/{id}', 'CaseController@case');
+    Route::get('items', 'CaseController@items');
+    Route::get('images', 'CaseController@images');
+    Route::get('all', 'CaseController@cases');
+    Route::get('get/{id}', 'CaseController@case');
 });

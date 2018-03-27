@@ -1,9 +1,9 @@
 <template>
     <div class="container">
-        <div class="row" v-show="loaded == 0">
-          <loader></loader>
+        <div class="row" v-show="loaded === 0">
+            <loader></loader>
         </div>
-        <div class="row" v-show="loaded == 1">
+        <div class="row" v-show="loaded === 1">
             <div class="col-lg-4" v-for="(item,index) in cases">
                 <router-link :to="'/case/' + item.id">{{ item.name }}</router-link>
             </div>
@@ -26,11 +26,11 @@
         methods: {
             loadCases() {
                 axios.get(this.api + 'all')
-                .then((res) => {
-                    this.cases = this.cases.concat(res.data);
+                    .then((res) => {
+                        this.cases = this.cases.concat(res.data);
 
-                    this.loaded++;
-                });
+                        this.loaded++;
+                    });
             }
         }
     }

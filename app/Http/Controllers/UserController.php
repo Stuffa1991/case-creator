@@ -2,20 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Auth;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function myaccount() {
-    	return Auth::user()->with('hasItems.iteminfo', 'transactions')->first();
+    public function myaccount()
+    {
+        return Auth::user()->with('hasItems.iteminfo', 'transactions')->first();
     }
 
-    public function sellItem($id) {
+    public function sellItem($id)
+    {
 
     }
 
-    public function withdrawItem() {
+    public function withdrawItem()
+    {
 
     }
 }
